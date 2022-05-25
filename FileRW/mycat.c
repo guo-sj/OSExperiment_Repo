@@ -25,12 +25,15 @@ int main(int argc, char *argv[])
         while ((rn = read(fd, s, MAXLEN)) > 0)
             if ((wn = write(1, s, rn)) == -1) {
                 perror("write file: ");
+                close(fd);
                 exit(1);
             }
         if (rn == -1) {
             perror("read file: ");
+            close(fd);
             exit(1);
         }
+        close(fd);
     }
     exit(0);
 }
